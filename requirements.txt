@@ -1,0 +1,61 @@
+code .
+```
+
+This opens VS Code in your project folder.
+
+In VS Code:
+1. Click on `requirements.txt` in the left sidebar
+2. Paste this content:
+```
+torch>=2.0.0
+numpy>=1.24.0
+pandas>=2.0.0
+matplotlib>=3.7.0
+seaborn>=0.12.0
+scipy>=1.10.0
+tensorboard>=2.13.0
+tqdm>=4.65.0
+shap>=0.42.0
+```
+
+3. Save the file (`Ctrl + S`)
+
+---
+
+### 2. Create `.gitignore`
+
+In VS Code, create a new file:
+1. Right-click in the Explorer panel → New File
+2. Name it `.gitignore`
+3. Paste this content:
+```
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+*.egg-info/
+.env
+
+# Jupyter (even though you're not using it)
+.ipynb_checkpoints/
+
+# Results - don't commit large files
+saved_models/*.pth
+results/logs/*.log
+*.h5
+*.pkl
+
+# IDEs
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Conda
+.conda/
