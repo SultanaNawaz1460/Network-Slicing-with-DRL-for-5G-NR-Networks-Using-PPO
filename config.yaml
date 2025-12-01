@@ -1,0 +1,117 @@
+# =============================================================================
+# 5G Network Slicing Environment Configuration
+# Frequency: 3.5 GHz (FR1, 3GPP band n78)
+# Numerology: μ=1 (30 kHz subcarrier spacing)
+# =============================================================================
+
+network:
+  # Frequency Range 1 (FR1) Parameters
+  carrier_frequency: 3.5e9    # Hz (NO QUOTES!)
+  frequency_range: FR1
+  
+  # Numerology (3GPP TS 38.211)
+  subcarrier_spacing: 30000   # 30 kHz
+  numerology_mu: 1
+  
+  # Resource Block Configuration
+  num_rbs: 273
+  subcarriers_per_rb: 12
+  total_bandwidth: 100000000  # 100 MHz
+  
+  # Time Parameters
+  slot_duration: 0.0005       # 0.5 ms
+  slots_per_subframe: 2
+  slots_per_frame: 20
+  
+  # Network Topology
+  num_base_stations: 7
+  coverage_area: [1000, 1000]
+  
+  # Base Station Configuration
+  bs_antenna_height: 25.0
+  bs_tx_power_dbm: 46.0
+  bs_antenna_gain_dbi: 18.0
+  bs_num_antennas: 64
+  
+  # User Configuration
+  num_users: 50
+  user_height: 1.5
+  
+  # Service Distribution
+  service_distribution:
+    eMBB: 0.5
+    URLLC: 0.3
+    mMTC: 0.2
+  
+  # Mobility Parameters
+  mobility_model: RandomWaypoint
+  user_speeds:
+    pedestrian: 1.4
+    vehicular: 30.0
+  speed_distribution:
+    pedestrian: 0.7
+    vehicular: 0.3
+
+# Service Type Configurations (3GPP TS 22.261)
+services:
+  eMBB:
+    min_throughput: 50000000      # 50 Mbps
+    max_latency: 0.05             # 50 ms
+    reliability: 0.95
+    priority: 2
+    min_sinr_db: 5
+    packet_size_mean: 1500
+    packet_size_std: 500
+    traffic_model: bursty
+    arrival_rate: 100
+    
+  URLLC:
+    min_throughput: 10000000      # 10 Mbps
+    max_latency: 0.001            # 1 ms
+    reliability: 0.99999
+    priority: 1
+    min_sinr_db: 15
+    reserved_rbs: 20
+    packet_size_mean: 200
+    packet_size_std: 50
+    traffic_model: periodic
+    arrival_rate: 50
+    
+  mMTC:
+    min_throughput: 100000        # 100 kbps
+    max_latency: 10               # 10 seconds
+    reliability: 0.90
+    priority: 3
+    min_sinr_db: -5
+    packet_size_mean: 100
+    packet_size_std: 20
+    traffic_model: poisson
+    arrival_rate: 10
+
+# Channel Model Parameters
+channel:
+  model_type: Hata-COST231
+  environment: urban
+  shadowing_std_db: 8.0
+  fading_model: Rayleigh
+  coherence_time: 0.01
+  noise_figure_db: 9.0
+  thermal_noise_density: -174
+  interference_enabled: true
+  inter_cell_interference: true
+
+# Simulation Parameters
+simulation:
+  max_episodes: 1000
+  steps_per_episode: 1000
+  random_seed: 42
+  log_interval: 10
+  save_interval: 100
+  
+# Visualization
+visualization:
+  enabled: true
+  plot_network_topology: true
+  plot_channel_heatmap: true
+  plot_throughput: true
+  plot_qos_satisfaction: true
